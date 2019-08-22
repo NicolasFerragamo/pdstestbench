@@ -108,7 +108,7 @@ def my_testbench( sig_type ):
     
     plt.figure(1)
     line_hdls = plt.plot(tt, x)
-    plt.title('Señal: ' + sig_type['tipo'] )
+    plt.title('Señal: ' + snpig_type['tipo'] )
     plt.xlabel('tiempo [segundos]')
     plt.ylabel('Amplitud [V]')
     #    plt.grid(which='both', axis='both')
