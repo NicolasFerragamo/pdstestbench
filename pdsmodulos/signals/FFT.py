@@ -12,24 +12,24 @@ import cmath
 
 #%% Lipieza de gráficos
 
-os.system ("clear") # limpia la terminal de python
-plt.close("all")    #cierra todos los graficos 
+#os.system ("clear") # limpia la terminal de python
+#plt.close("all")    #cierra todos los graficos 
 
 #%%  TRABAJAMOS CON LA FFT
 
-def plotFFT (fftsignal, fs, N, y1l='amplitud [UA] ', y2l='Fase [rad] ', p1t=' ', p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right') :
-    
-    mod_signal = np.abs(fftsignal)
+def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ', p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right', c=0, l=' ') :
+    mod_signal = np.abs(fftsignal) *2 / N
+    mod_signal = 20 *np.log10(mod_signal)
     fase_signal = np.angle(fftsignal)
     df= fs / N
-    
+    col= ['r', 'b', 'g', 'c', 'm', 'y', 'k']
     
 #%% Ploteo de la FFT
     plt.figure(tp)
     plt.subplot(2,1,1)
-    freq = np.linspace(0, (N-1)*df,N-1)/fs
-    plt.plot(freq[0:int(N/2+1)], mod_signal[0:int(N/2+1)], color='blue', label='modulo')
-    plt.xlabel('frecuecnia [Hz]')
+    freq = np.linspace(0, (N-1)*df, N) / fs
+    plt.plot(freq[0:int(N/2+1)], mod_signal[0:int(N/2+1)], col[c], label='modulo '+ l, linestyle='-')
+    plt.xlabel('frecuecnia normalizada f/fs [Hz]')
     plt.ylabel(y1l)
     plt.axhline(0, color="black")
     plt.axvline(0, color="black")
@@ -39,8 +39,8 @@ def plotFFT (fftsignal, fs, N, y1l='amplitud [UA] ', y2l='Fase [rad] ', p1t=' ',
 
 
     plt.subplot(2,1,2)
-    plt.plot(freq[0:int(N/2+1)], fase_signal[0:int(N/2+1)],color='red',label='fase')
-    plt.xlabel('frecuecnia [Hz]')
+    plt.plot(freq[0:int(N/2+1)], fase_signal[0:int(N/2+1)], col[c], label='fase '+ l, linestyle='-')
+    plt.xlabel('frecuecnia normalizada f/fs [Hz]')
     plt.ylabel(y2l)
     plt.axhline(0, color="black")
     plt.axvline(0, color="black")
