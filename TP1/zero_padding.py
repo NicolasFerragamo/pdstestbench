@@ -43,10 +43,6 @@ signal4 = np.zeros(M[3])
 signal5 = np.zeros(M[4])
 
 
-padding2 = np.zeros(M[0]-N)
-padding3 = np.zeros(M[0]-N)
-padding4 = np.zeros(M[0]-N)
-padding5 = np.zeros(M[0]-N)
 
 #%% generacion y muestreo de senoidal
 tt, signal = sg.seno(fs, f0, N, a0, p0)

@@ -59,7 +59,7 @@ def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] 
     plt.ylabel(y1l)
     plt.axhline(0, color="black")
     plt.axvline(0, color="black")
-    plt.xlim((0.2,0.3))
+    #plt.xlim((0.2,0.3))
     plt.grid()
     plt.title('Modulo de la señal '+p1t)
     plt.legend(loc = loc1)
