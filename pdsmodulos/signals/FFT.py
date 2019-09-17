@@ -31,8 +31,8 @@ import cmath
 #  l: nombre de la etiqueta
 #  db: grafica el modulo en dB si esta en 'ON' o en veces si esta en 'off' por defecto esta actiado
 #  tipo:  determina si quiero usar plot o stem por defecto esta activado plot
-#  m:  linestyle por defecto esta '-'
-#  ls: Linestyle  por defecto = 'None'
+#  m:  marker por defecto esta '-'
+#  ls: Linestyle  por defecto = 'None' (es la interpolacion)
 
 def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
              p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right', c=0,
