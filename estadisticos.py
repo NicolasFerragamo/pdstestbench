@@ -140,7 +140,7 @@ while (ii < Nexp) :
           jj += 1
      ii += 1
      
- #%% prueba de los estadisticos
+#%% prueba de los estadisticos
 # en primer lugar realizo la prueba de maximizar el modulo de cada señal con padding5 y obtengo los índices de losmaximos para cada experimento
      
 max_padding5 = np.zeros((Nexp))
@@ -162,7 +162,7 @@ while (ii < Nexp) :
      
      
  #%% prueba de los estadisticos
-# en primer lugar realizo la prueba de maximizar el modulo de cada señal con padding10 y obtengo los índices de losmaximos para cada experimento
+# en primer lugar realizo la prueba de maximizar el modulo de cada señal con padding10 y obtengo los índices de los maximos para cada experimento
      
 max_padding10 = np.zeros((Nexp))
 
@@ -247,7 +247,7 @@ while ii < Nexp :
     
      
 #%%  Grafico de los resultados
-plt.figure("Gráfico de los errores relativos")
+plt.figure("Gráfico de los errores relativos de estimación espectral")
 plt.plot(f1, error_signal, '*r', label='error señal')
 plt.plot(f1, error_padding5, '*b', label='error padding5')
 plt.plot(f1, error_padding10, '*g', label='error padding10')
@@ -257,7 +257,7 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.xlim((249.5,250.5))
 plt.grid()
-plt.title('Errores relativos ')
+plt.title('Errores relativos de estimación espectral')
 plt.legend(loc = 'upper right')
 plt.savefig("Err_relativos.png")
      
@@ -265,65 +265,79 @@ plt.savefig("Err_relativos.png")
      
      
 #%% error en la frecuencia
-#
-#error_signal = []
-#error_signal = np.zeros((Nexp))
-#
-#error_padding5 = []
-#error_padding5 = np.zeros((Nexp))
-#
-#error_padding10 = []
-#error_padding10 = np.zeros((Nexp))
-# 
-#
-#error_signal    = (k - f1) / f1
-#error_padding5  = (k5 - f1 * 5) / (5 * f1)
-#error_padding10 = (k10 - f1 * 10) / (10 * f1)
-#
-#
-##%% Cálculos estadisticos
-#
-#mean_error_signal = stats.mean(error_signal)
-#print("Valor medio de error_signal: ",mean_error_signal,"\n")
-#
-#var_error_signal = stats.pvariance(error_signal)
-#print("Varianza de error_signal: ",var_error_signal,"\n")
-#
-#dstd_error_signal= stats.pstdev(error_signal)
-#print("Desviación estandar de error_signal: ",dstd_error_signal,"\n")
-#
-#
-## con 5*N zero padding
-#mean_error_padding5 = stats.mean(error_padding5)
-#print("Valor medio de error_padding5: ",mean_error_padding5,"\n")
-#
-#var_error_padding5 = stats.pvariance(error_padding5)
-#print("Varianza de error_padding5: ",var_error_padding5,"\n")
-#
-#dstd_error_padding5= stats.pstdev(error_padding5)
-#print("Desviación estandar de error_padding5: ",dstd_error_padding5,"\n")
-#
-#
-## con 10*N zero padding
-#mean_error_padding10 = stats.mean(error_padding10)
-#print("Valor medio de error_padding10: ",mean_error_padding10,"\n")
-#
-#var_error_padding10 = stats.pvariance(error_padding10)
-#print("Varianza de error_padding10: ",var_error_padding10,"\n")
-#
-#dstd_error_padding10= stats.pstdev(error_padding10)
-#print("Desviación estandar de error_padding10: ",dstd_error_padding10,"\n")
+
+
+error_fsignal = np.zeros((Nexp))
+error_fpadding5 = np.zeros((Nexp))
+error_fpadding10 = np.zeros((Nexp))
+ 
+
+error_fsignal    = abs((k - f1) / f1)
+#error_fpadding5  = (k5 - f1 * 5) / (5 * f1)
+#error_fpadding10 = (k10 - f1 * 10) / (10 * f1)
+
+error_fpadding5  = abs((k5 / 5 - f1) / f1)
+error_fpadding10 = abs((k10 / 10 - f1) /f1)
+
+#%% Cálculos estadisticos
+
+mean_error_fsignal = stats.mean(error_fsignal)
+print("Valor medio de error_fsignal: ",mean_error_fsignal,"\n")
+
+var_error_fsignal = stats.pvariance(error_fsignal)
+print("Varianza de error_sfignal: ",var_error_fsignal,"\n")
+
+dstd_error_fsignal= stats.pstdev(error_fsignal)
+print("Desviación estandar de error_fsignal: ",dstd_error_fsignal,"\n")
+
+
+# con 5*N zero padding
+mean_error_fpadding5 = stats.mean(error_fpadding5)
+print("Valor medio de error_fpadding5: ",mean_error_fpadding5,"\n")
+
+var_error_fpadding5 = stats.pvariance(error_fpadding5)
+print("Varianza de error_fpadding5: ",var_error_fpadding5,"\n")
+
+dstd_error_fpadding5= stats.pstdev(error_fpadding5)
+print("Desviación estandar de error_fpadding5: ",dstd_error_fpadding5,"\n")
+
+
+# con 10*N zero padding
+mean_error_fpadding10 = stats.mean(error_fpadding10)
+print("Valor medio de error_fpadding10: ",mean_error_fpadding10,"\n")
+
+var_error_fpadding10 = stats.pvariance(error_fpadding10)
+print("Varianza de error_fpadding10: ",var_error_fpadding10,"\n")
+
+dstd_error_fpadding10= stats.pstdev(error_fpadding10)
+print("Desviación estandar de error_fpadding10: ",dstd_error_fpadding10,"\n")
 
 
 
 #%% Ploteo de los errores
 
-#plt.figure("Grafico de errores")
-#plt.hist(error_signal, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="signal")
-#plt.hist(error_padding5, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="padding5")
-#plt.hist(error_padding10, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="padding10")
-#plt.legend(loc = 'upper right')
-#plt.ylabel('frequencia')
-#plt.xlabel('valores')
-#plt.title('Histograma de errores')
-#plt.show()
+plt.figure("Histograma de errores al estimar la frecuencia")
+plt.hist(error_signal, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="signal")
+plt.hist(error_padding5, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="padding5")
+plt.hist(error_padding10, bins=50, alpha=1, edgecolor = 'black',  linewidth=1, label="padding10")
+plt.legend(loc = 'upper right')
+plt.ylabel('frecuencia')
+plt.xlabel('valores')
+plt.title('istograma de errores al estimar la frecuencia')
+plt.show()
+plt.savefig("Histograma_err_frec.png")
+plt.savefig("Histograma_err_frec.eps", format='eps')
+
+#%% Ploteo de los errores
+plt.figure("Grafico de errores al estimar la frecuencia")
+plt.plot(f1, error_fsignal, '*r', label='error fseñal')
+plt.plot(f1, error_fpadding5, '*b', label='error fpadding5')
+plt.plot(f1, error_fpadding10, '*g', label='error fpadding10')
+plt.legend(loc = 'upper right')
+plt.grid()
+plt.ylabel('error relativo')
+plt.xlabel('frecuencias')
+plt.title("Grafico de errores al estimar la frecuencia")
+plt.show()
+plt.savefig("grafico_err_frec.png")
+plt.savefig("grafico_err_frec.eps",format='eps')
