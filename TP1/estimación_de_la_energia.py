@@ -26,13 +26,13 @@ width = 100
 varianza = 1
 SNR = 10
 
-fd = np.array([0.01, 0.25, 0.5],float)
-fd1 = np.array(['0.01', '0.25', '0.5'])
+fd = np.array([0, 0.01, 0.25, 0.5],float)
+fd1 = np.array(['f0', '0.01', '0.25', '0.5'])
 
 signal = []
-signal = np.zeros((N,3))
+signal = np.zeros((N,4))
 fftsignal= []
-fftsignal= np.zeros((N,3))
+fftsignal= np.zeros((N,4))
 
 
 tt, signal[:,0] = sg.seno(fs, f0 + fd[0], N, a0, p0)
@@ -41,7 +41,7 @@ energia = 0
 for ii in range(0,N):
      energia += signal[ii,0]**2
 
-energia = energia/N
+energia = energia / N
 print ("la energía termporal es: " ,energia)
 
 fftsignal = np.fft.fft(signal[:,0])

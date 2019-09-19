@@ -87,7 +87,7 @@ plt.show()
 
 for ii in range(0, Nexp) :
      f1[ii] = f0 + fa[ii]
-  
+
 del fa     
      
 for ii in range(0, Nexp) :
