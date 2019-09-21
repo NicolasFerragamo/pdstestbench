@@ -89,4 +89,5 @@ df = pd.DataFrame(tus_resultados, columns=['Frecuencia central', 'Primer adyacen
                       '$f_S/4+0.01$', 
                       '$f_S/4+0.25$', 
                       '$f_S/4+0.5$'])
+
 print(df)
