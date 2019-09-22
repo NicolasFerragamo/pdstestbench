@@ -87,7 +87,7 @@ for jj in range(0, int(N/2)) :
 print('la frecuencia estimada es: ', k)
 
 
-energia_frecuencia_puntual = mod_fftsignal1[k] **2
+energia_frecuencia_puntual = mod_fftsignal1[9] **2
 energia_frecuencia_puntual = energia_frecuencia_puntual *2/(N**2)
 print('la energía estimada puntual es: ', energia_frecuencia_puntual)
 

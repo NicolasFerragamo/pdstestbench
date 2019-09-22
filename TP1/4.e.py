@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Sep 21 19:58:58 2019
+Created on Sat Sep 21 20:19:11 2019
 
 @author: nico
 """
@@ -25,7 +25,8 @@ fs = 1000 # Hz
 df = fs / N
 a0 = 1 # Volts
 p0 = 0 # radianes
-f0 = 9*df# Hz
+f0 = 9*df # Hz
+f1 = 8*df # Hz
 
 #%% Genero las variables necesarias
 
@@ -39,15 +40,19 @@ energia_max_frecuencia = 0
 
 
 #%% generacion y muestreo de las senoidal
-N0= round((1/f0)*1000)
-tt, aux_signal = sg.seno(fs, f0, N0, a0, p0)
+N0 = round((1/f0)*1000)
+N1 = round((1/f1)*1000)
+tt, aux_signal1 = sg.seno(fs, f0, N0, a0, p0)
+tt, aux_signal2 = sg.seno(fs, f1, N1, a0, p0)
 
 aux  = np.zeros(2*N0)
-aux2 = np.zeros((N-3*N0))
-aux3 = np.concatenate((aux,aux_signal), axis=0) 
-signal = np.concatenate((aux3 ,aux2), axis=0) 
+aux2 = np.zeros((N - 3*N0 - N1))
+aux3 = np.concatenate((aux_signal1, aux), axis=0) 
+aux_signal = np.concatenate((aux3 ,aux_signal2), axis=0) 
+signal = np.concatenate((aux_signal, aux2), axis=0) 
 
-del tt, aux, aux2, aux3, aux_signal
+del tt, aux, aux2, aux3, aux_signal, aux_signal1,aux_signal2
+
 tt = np.linspace(0, (N-1)/fs, N)
 
 fftsignal    = np.fft.fft(signal)
@@ -65,8 +70,8 @@ plt.grid()
 plt.title('Gráfico de la señal temporal')
 plt.legend(loc = 'upper right')
 
-FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ',
-              c=0, db='ON', tipo='plot', m='.')
+FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud [UA]', y2l='Fase [rad] ',
+              c=0, db='off', tipo='plot', m='.')
 #%%  Cálculo de la energía
 
 # energía temporal
@@ -98,9 +103,13 @@ for jj in range(0, int(N/2)) :
 print('la frecuencia estimada es: ', k)
 
 
-energia_frecuencia_puntual = mod_fftsignal1[9] **2
-energia_frecuencia_puntual = energia_frecuencia_puntual *2/(N**2)
-print('la energía estimada puntual es: ', energia_frecuencia_puntual)
+energia_frecuencia_puntual9 = mod_fftsignal1[9] **2
+energia_frecuencia_puntual9 = energia_frecuencia_puntual9 *2/(N**2)
+
+energia_frecuencia_puntual8 = mod_fftsignal1[8] **2
+energia_frecuencia_puntual8 = energia_frecuencia_puntual8 *2/(N**2)
+print('la energía estimada puntual 9 es: ', energia_frecuencia_puntual9)
+print('la energía estimada puntual 8 es: ', energia_frecuencia_puntual8)
 
 energia_max_frecuencia = max_signal **2
 energia_max_frecuencia = energia_max_frecuencia *2/(N**2)
@@ -108,8 +117,8 @@ print('la energía estimada maxima es: ', energia_max_frecuencia)
 
 #%% Relleno de tabla 
 
-prediccion = ['0.055 (Cálculo en tiempo)', '0.00664283', '0.00664283']
-resultados = [energia_frecuencia, energia_frecuencia_puntual, energia_max_frecuencia]
+prediccion = [' 0,118 (Cálculo en tiempo)', '< 0,0625(Cálculo en tiempo)', '< 0,0555(Cálculo en tiempo)']
+resultados = [energia_frecuencia, energia_frecuencia_puntual9, energia_max_frecuencia]
 
 tus_resultados = [ ['$\sum_{f=0}^{f_S/2} \lvert X(f) \rvert ^2$', '$ \lvert X(f_0) \rvert ^2 $', '$ \mathop{arg\ max}_f \{\lvert X(f) \rvert ^2\} $'], 
                    ['',                                     '',                           '$f \in [0:f_S/2]$'], 
