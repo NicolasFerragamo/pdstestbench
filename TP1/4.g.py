@@ -24,6 +24,8 @@ N  = 1000 # muestras
 fs = 1000 # Hz
 df = fs / N
 a0 = 1 # Volts
+a1 = 5 # Volts
+a2 = 3 # Volts
 p0 = 0 # radianes
 f0 = 9*df# Hz
 
@@ -38,12 +40,18 @@ energia_frecuencia_puntual = 0
 energia_max_frecuencia = 0
 #%% generacion y muestreo de las senoidal
 N0= round((1/f0)*1000)
-tt, aux_signal = sg.seno(fs, f0, N0, a0, p0)
+tt, aux_signal0 = sg.seno(fs, f0, N0, a0, p0)
+tt, aux_signal1 = sg.seno(fs, f0, N0, a1, p0)
+tt, aux_signal2 = sg.seno(fs, f0, N0, a2, p0)
 
-aux = np.zeros(N-N0)
-signal = np.concatenate((aux_signal, aux), axis=0) 
+aux = np.zeros(2*N0)
+aux = np.concatenate((aux_signal0, aux_signal1), axis=0) 
+aux2 = np.zeros(3*N0)
+aux2 = np.concatenate((aux, aux_signal2), axis=0) 
+aux3 = aux = np.zeros(N - 3*N0)
+signal = np.concatenate((aux2, aux3), axis=0) 
 
-del tt, aux, aux_signal
+del tt, aux, aux2, aux3, aux_signal0, aux_signal1, aux_signal2
 tt = np.linspace(0, (N-1)/fs, N)
 
 fftsignal    = np.fft.fft(signal)
@@ -52,14 +60,14 @@ mod_fftsignal = np.abs(fftsignal)
 
 #%% Gŕaficos de las señales en tiempo y en frecuenciales
 plt.figure("Gráfico de la señal temporal")
-plt.plot(tt, signal, 'b', label='f0 = 9d.f')
+plt.plot(tt, signal, 'b')
 plt.xlabel('tiempo [S]')
 plt.ylabel('Amplitud [UA]')
 plt.grid()
 plt.title('Gráfico de la señal temporal')
-plt.legend(loc = 'upper right')
 
-FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ',
+
+FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud [UA] ', y2l='Fase [rad] ',
               c=0, db='off', tipo='plot', m='.', col_ax='off')
 #%%  Cálculo de la energía
 
@@ -101,8 +109,7 @@ energia_max_frecuencia = energia_max_frecuencia *2/(N**2)
 print('la energía estimada maxima es: ', energia_max_frecuencia)
 
 #%% Relleno de tabla 
-
-prediccion = ['0.055 (Cálculo en tiempo)', '<0,05', '<0,05']
+prediccion = ['', '', '']
 resultados = [energia_frecuencia, energia_frecuencia_puntual, energia_max_frecuencia]
 
 tus_resultados = [ ['$\sum_{f=0}^{f_S/2} \lvert X(f) \rvert ^2$', '$ \lvert X(f_0) \rvert ^2 $', '$ \mathop{arg\ max}_f \{\lvert X(f) \rvert ^2\} $'], 

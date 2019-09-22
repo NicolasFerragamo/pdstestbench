@@ -37,7 +37,7 @@ energia_frecuencia = 0
 energia_frecuencia_puntual = 0
 energia_max_frecuencia = 0
 #%% generacion y muestreo de las senoidal
-N0= round((1/f0)*1000)
+N0= round((3/f0)*1000)
 tt, aux_signal = sg.seno(fs, f0, N0, a0, p0)
 
 aux = np.zeros(N-N0)
@@ -52,14 +52,14 @@ mod_fftsignal = np.abs(fftsignal)
 
 #%% Gŕaficos de las señales en tiempo y en frecuenciales
 plt.figure("Gráfico de la señal temporal")
-plt.plot(tt, signal, 'b', label='f0 = 9d.f')
+plt.plot(tt, signal, 'b')
 plt.xlabel('tiempo [S]')
 plt.ylabel('Amplitud [UA]')
 plt.grid()
 plt.title('Gráfico de la señal temporal')
-plt.legend(loc = 'upper right')
 
-FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ',
+
+FFT.plotFFT(fftsignal, fs, N, y1l='Amplitud [UA] ', y2l='Fase [rad] ',
               c=0, db='off', tipo='plot', m='.', col_ax='off')
 #%%  Cálculo de la energía
 
@@ -101,8 +101,7 @@ energia_max_frecuencia = energia_max_frecuencia *2/(N**2)
 print('la energía estimada maxima es: ', energia_max_frecuencia)
 
 #%% Relleno de tabla 
-
-prediccion = ['0.055 (Cálculo en tiempo)', '<0,05', '<0,05']
+prediccion = ['0.166', '0,055', '0,055']
 resultados = [energia_frecuencia, energia_frecuencia_puntual, energia_max_frecuencia]
 
 tus_resultados = [ ['$\sum_{f=0}^{f_S/2} \lvert X(f) \rvert ^2$', '$ \lvert X(f_0) \rvert ^2 $', '$ \mathop{arg\ max}_f \{\lvert X(f) \rvert ^2\} $'], 
