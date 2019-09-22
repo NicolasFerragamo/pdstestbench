@@ -24,9 +24,8 @@ N  = 1000 # muestras
 fs = 1000 # Hz
 df = fs / N
 a0 = 1 # Volts
-a1 = 5 # Volts
-a2 = 3 # Volts
 p0 = 0 # radianes
+p1 = np.pi # radianes
 f0 = 9*df# Hz
 
 #%% Genero las variables necesarias
@@ -38,23 +37,17 @@ energia_temporal = 0
 energia_frecuencia = 0
 energia_frecuencia_puntual = 0
 energia_max_frecuencia = 0
+
 #%% generacion y muestreo de las senoidal
 N0= round((1/f0)*1000)
-tt, aux_signal0 = sg.seno(fs, f0, N0, a0, p0)
-tt, aux_signal1 = sg.seno(fs, f0, N0, a1, p0)
-tt, aux_signal2 = sg.seno(fs, f0, N0, a2, p0)
-
+tt, aux_signal1 = sg.seno(fs, f0, N0, a0, p0)
+tt, aux_signal2 = sg.seno(fs, f0, N0, a0, p1)
 aux = np.zeros(2*N0)
-aux = np.concatenate((aux_signal0, aux_signal1), axis=0) 
-aux2 = np.zeros(3*N0)
-aux2 = np.concatenate((aux, aux_signal2), axis=0) 
-aux3 = aux = np.zeros(6*N0)
-aux3 = np.concatenate((aux2, aux2), axis=0) 
-aux4 = np.concatenate((aux3, aux2), axis=0) 
-aux5 = np.zeros((1))
-signal = np.concatenate((aux4, aux5), axis=0) 
+aux = np.concatenate((aux_signal1, aux_signal2), axis=0) 
+aux2 = np.zeros(N - 2*N0)
+signal = np.concatenate((aux, aux2), axis=0) 
 
-del tt, aux, aux2, aux3, aux4, aux5, aux_signal0, aux_signal1, aux_signal2
+del tt, aux, aux2, aux_signal1, aux_signal2
 tt = np.linspace(0, (N-1)/fs, N)
 
 fftsignal    = np.fft.fft(signal)
@@ -112,7 +105,7 @@ energia_max_frecuencia = energia_max_frecuencia *2/(N**2)
 print('la energía estimada maxima es: ', energia_max_frecuencia)
 
 #%% Relleno de tabla 
-prediccion = ['5,8333', '5,8333', '5,8333']
+prediccion = ['0.111', '<0,0246', '0,0246']
 resultados = [energia_frecuencia, energia_frecuencia_puntual, energia_max_frecuencia]
 
 tus_resultados = [ ['$\sum_{f=0}^{f_S/2} \lvert X(f) \rvert ^2$', '$ \lvert X(f_0) \rvert ^2 $', '$ \mathop{arg\ max}_f \{\lvert X(f) \rvert ^2\} $'], 
