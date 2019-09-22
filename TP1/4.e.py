@@ -20,13 +20,13 @@ os.system ("clear") # limpia la terminal de python
 plt.close("all")    #cierra todos los graficos 
 
 #%% Estalesco lcambioos datos necesarios
-N  = 1000 # muestras
+N  = 5000 # muestras
 fs = 1000 # Hz
 df = fs / N
 a0 = 1 # Volts
 p0 = 0 # radianes
-f0 = 9*df # Hz
-f1 = 8*df # Hz
+f0 = 9*5*df # Hz
+f1 = 8*5*df # Hz
 
 #%% Genero las variables necesarias
 
@@ -47,8 +47,8 @@ tt, aux_signal2 = sg.seno(fs, f1, N1, a0, p0)
 
 aux  = np.zeros(2*N0)
 aux2 = np.zeros((N - 3*N0 - N1))
-aux3 = np.concatenate((aux_signal1, aux), axis=0) 
-aux_signal = np.concatenate((aux3 ,aux_signal2), axis=0) 
+aux3 = np.concatenate((aux_signal2, aux), axis=0) 
+aux_signal = np.concatenate((aux3 ,aux_signal1), axis=0) 
 signal = np.concatenate((aux_signal, aux2), axis=0) 
 
 del tt, aux, aux2, aux3, aux_signal, aux_signal1,aux_signal2

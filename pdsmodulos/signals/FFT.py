@@ -33,10 +33,11 @@ import cmath
 #  tipo:  determina si quiero usar plot o stem por defecto esta activado plot
 #  m:  marker por defecto esta '-'
 #  ls: Linestyle  por defecto = 'None' (es la interpolacion)
+#  col_ax: activa o desactiva el color de los ejes por defecto esta encendido
 
 def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
              p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right', c=0,
-             l=' ', db='ON', tipo='plot', m='.',ls='None') :
+             l=' ', db='ON', tipo='plot', m='.',ls='None', col_ax = 'on') :
     
     mod_signal, fase_signal = Mod_and_Angle_signal (fftsignal, db)
     N =len(fftsignal)
@@ -57,8 +58,9 @@ def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] 
                    marker=m, linestyle=ls)
     plt.xlabel('frecuecnia normalizada f/fs [Hz]')
     plt.ylabel(y1l)
-    plt.axhline(0, color="black")
-    plt.axvline(0, color="black")
+    if col_ax == 'ON'or col_ax == 'on' :
+         plt.axhline(0, color="black")
+         plt.axvline(0, color="black")
     #plt.xlim((0.2,0.3))
     plt.grid()
     plt.title('Modulo de la señal '+p1t)
@@ -74,8 +76,9 @@ def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] 
                     marker=m, linestyle=ls)
     plt.xlabel('frecuecnia normalizada f/fs [Hz]')
     plt.ylabel(y2l)
-    plt.axhline(0, color="black")
-    plt.axvline(0, color="black")
+    if col_ax == 'ON'or col_ax == 'on' :
+         plt.axhline(0, color="black")
+         plt.axvline(0, color="black")
     plt.grid()
     plt.title('fase de la señal '+p2t)
     plt.legend(loc = loc2)
