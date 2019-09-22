@@ -101,10 +101,10 @@ def sawtooth (fs=1000, f0=1, N=1000, a0=2, p0=0, width=50) :
     signal: señal de ruido con distribución normal
     tt:     base de tiempo de la señal
     """    
-def noise (fs=1000, f0=1, N=1000, a0=1, SNR=1000.0, varianza = np.nan) :
+def noise (fs=1000, f0=1, N=1000, a0=1, SNR=1000.0, varianza = 'None') :
     
-    pot_senoidal = a0 / 2 
-    if varianza != np.nan :
+    pot_senoidal = (a0**2) / 2 
+    if varianza != 'None' :
          ruido = varianza * np.random.normal(0, 1, N)
     else :
          varianza_ruido = pot_senoidal/pow(10, SNR/10)
@@ -141,7 +141,8 @@ def quantizer (signal, n) :
     
     qsignal: señal cuantificada
 """    
-    
+# esta función solo cuantifica hasta 1 si la señal se pasa la aplana en 1, tienen un limitador
+
 def uniform_midtread_quantizer(signal, n):
      
     Q = (max(signal) - min(signal)) / 2**n
