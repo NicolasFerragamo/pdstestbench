@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statistics as stats
 import scipy.signal as sg
+import seaborn as sns
 
 os.system ("clear") # limpia la terminal de python
 plt.close("all")    #cierra todos los graficos 
@@ -64,7 +65,10 @@ for (ii, this_w) in zip(range(V), ventanas):
 
      varianza[ii] = stats.variance(a_est[:, ii])
      
+     hist, bin_edges = np.histogram(a_est[:,ii], density=True)
+    
      plt.figure("Histograma de a_est con ventana "  )
+     #sns.pairplot(bin_edges, hist)
      plt.hist(a_est[:,ii], bins=20, alpha=1, edgecolor = 'black',  linewidth=1, label=ventana[ii])
      plt.legend(loc = 'upper right')
      plt.ylabel('frecuencia')
