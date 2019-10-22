@@ -151,7 +151,6 @@ max_padding10 = np.amax(mod_padding10_1, axis=0)
 k10 = np.argmax(mod_padding10_1, axis=0)
      
 #%% Calculo la energia de las señales en tiempo (valor real)
-
 energia_tiempo = np.sum(signal**2, axis=0) / N
 
 #%% Estimación puntual 
