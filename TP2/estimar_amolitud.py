@@ -41,9 +41,9 @@ plt.show()
 f1 = f0 + fa
 del fa     
 
-ventanas = [np.hanning(N), np.hamming(N), np.blackman(N), sg.boxcar(N), sg.flattop(N)]
+ventanas = [sg.boxcar(N), np.bartlett(N), np.hanning(N), np.blackman(N),  sg.flattop(N)]
 V =  len(ventanas)
-ventana = ["hanning", "hamming", "blackman", "rectangular", "flattop"]
+ventana = ["rectangular",'Barlett',"hanning", "blackman",  "flattop"]
 sesgo = np.zeros((V))
 a_est = np.zeros((Nexp, V))
 a_mean = np.zeros((V))
