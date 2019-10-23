@@ -29,7 +29,7 @@ f1 = f0 + df*np.array([0.01, 0.25, 0.5],float)
 fd1 = np.array(['0.01', '0.25', '0.5'])
 f2 = f0+ 10*df
 A1 = np.array([a0 * 10**(-50/20), a0 * 10**(-25/20), a0 * 10**(-30/20)])
-A  = np.array(['-50 dB', '-25 dB', '-30 dB'])
+A  = np.array(['a1 = -50 dB', 'a1 = -25 dB', 'a1 = -30 dB'])
 
 #%% Señales ej 2c
 tt = np.linspace(0, (N-1)/fs, N)  
