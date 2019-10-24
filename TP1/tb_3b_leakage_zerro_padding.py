@@ -10,7 +10,7 @@ Created on Wed Sep 18 18:49:21 2019
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-
+from scipy.fftpack import fft
 from pdsmodulos.signals import signals as sg 
 from pdsmodulos.signals import FFT
 
@@ -58,12 +58,12 @@ del aux_padding1
 del aux_padding10
 
 #%% Gŕaficos de las señales frecuenciales
-fftpadding01 = np.fft.fft(signal_padding01)
-FFT.plotFFT(fftpadding01,fs,M, tp= 'FFT', c=0, l=fd1[0], db='on', m='.')
+fftpadding01 = fft(signal_padding01)
+FFT.plotFFT(fftpadding01,fs, tp= 'FFT', c=0, l=fd1[0], db='on', m='.')
 
-fftpadding1 = np.fft.fft(signal_padding1)
-FFT.plotFFT(fftpadding1 ,fs,M, tp= 'FFT', c=1, l=fd1[1], db='on', m='.')
+fftpadding1 = fft(signal_padding1)
+FFT.plotFFT(fftpadding1 ,fs, tp= 'FFT', c=1, l=fd1[1], db='on', m='.')
 
-fftpadding10 = np.fft.fft(signal_padding10)
-FFT.plotFFT(fftpadding10,fs,M, tp= 'FFT', c=2, l=fd1[2], db='on', m='.')
+fftpadding10 = fft(signal_padding10)
+FFT.plotFFT(fftpadding10,fs, tp= 'FFT', c=2, l=fd1[2], db='on', m='.')
 

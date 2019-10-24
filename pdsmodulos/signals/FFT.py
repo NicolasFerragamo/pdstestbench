@@ -35,7 +35,7 @@ import cmath
 #  ls: Linestyle  por defecto = 'None' (es la interpolacion)
 #  col_ax: activa o desactiva el color de los ejes por defecto esta encendido
 
-def plotFFT (fftsignal, fs, N, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
+def plotFFT (fftsignal, fs, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
              p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right', c=0,
              l=' ', db='ON', tipo='plot', m='.',ls='None', col_ax = 'on') :
     
