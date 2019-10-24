@@ -5,8 +5,6 @@ Created on Mon Oct 21 18:59:11 2019
 
 @author: nico
 """
-import os
-import matplotlib.pyplot as plt
 import numpy as np
 
 

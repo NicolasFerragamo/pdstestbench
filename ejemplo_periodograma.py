@@ -10,6 +10,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 #import seaborn as sns
+from pdsmodulos.signals import espectral_estimation as es
 
 os.system ("clear") # limpia la terminal de python
 plt.close("all")    #cierra todos los graficos 
@@ -70,4 +71,5 @@ plt.axvline(0, color="black")
 plt.grid()
 plt.title("varianza muestral")
 plt.tight_layout() #para ajustar el tamaño de lo contrario se puperpinan los titulos
+
 
