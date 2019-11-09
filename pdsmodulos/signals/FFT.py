@@ -35,11 +35,11 @@ import cmath
 #  ls: Linestyle  por defecto = 'None' (es la interpolacion)
 #  col_ax: activa o desactiva el color de los ejes por defecto esta encendido
 
-def plotFFT (fftsignal, fs, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
+def plotFFT (fftsignal, fs, norm=0, y1l='Amplitud Normlizada [db] ', y2l='Fase [rad] ', p1t=' ',
              p2t=' ', tp="FFT de la señal", loc1='upper right', loc2='upper right', c=0,
              l=' ', db='ON', tipo='plot', m='.',ls='None', col_ax = 'on') :
     
-    mod_signal, fase_signal = Mod_and_Angle_signal (fftsignal, db)
+    mod_signal, fase_signal = Mod_and_Angle_signal (fftsignal, db, norm)
     N =len(fftsignal)
     df= fs / N
     col= ['r', 'b', 'g', 'c', 'm', 'y', 'k']
@@ -113,10 +113,12 @@ def myDFT (signal) :
 #  Por defecto retorna el módulo en dB y normalizado, de no quererlo en db utilizar db='off'    
     
 
-def Mod_and_Angle_signal (fftsignal, db='ON') :
+def Mod_and_Angle_signal (fftsignal, db='ON', norm=0) :
     
-    N =len(fftsignal)
-    mod_signal = np.abs(fftsignal) *2 / N
+    if norm == 0 :
+         norm =len(fftsignal)
+    
+    mod_signal = np.abs(fftsignal) *2 / norm
     fase_signal = np.angle(fftsignal)
     if db == 'ON'or db == 'on' :
         mod_signal = 20 *np.log10(mod_signal)

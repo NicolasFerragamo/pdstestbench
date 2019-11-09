@@ -65,5 +65,5 @@ fftpadding1 = fft(signal_padding1)
 FFT.plotFFT(fftpadding1 ,fs, tp= 'FFT', c=1, l=fd1[1], db='on', m='.')
 
 fftpadding10 = fft(signal_padding10)
-FFT.plotFFT(fftpadding10,fs, tp= 'FFT', c=2, l=fd1[2], db='on', m='.')
+FFT.plotFFT(fftpadding10,fs, norm=N, tp= 'FFT', c=2, l=fd1[2], db='on', m='.')
 

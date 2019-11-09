@@ -10,7 +10,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 #import seaborn as sns
-from pdsmodulos.signals import espectral_estimation as es
+from pdsmodulos.signals import spectral_estimation as sp
 
 os.system ("clear") # limpia la terminal de python
 plt.close("all")    #cierra todos los graficos 
@@ -40,7 +40,15 @@ plt.grid()
 plt.title("Gráfico dde realizaciones de ruido blanco")
 
 #%% Periodograma
-Sper = np.vstack(np.transpose([1/N *(np.abs(np.fft.fft(signal[:,ii])))**2 for ii in range(Nexp)]))
+#Sper = np.vstack(np.transpose([1/N *(np.abs(np.fft.fft(signal[:,ii])))**2 for ii in range(Nexp)]))
+
+#Sper  = sp.periodogram(signal, exp=500, ax=0)
+#Sper = np.vstack(np.transpose([sp.mperiodogram(signal[:,ii], 'Bartlett', ax=0) for ii in range(Nexp)]))
+K = 40
+over = 0.5
+L = N/40
+#Sper = np.vstack(np.transpose([sp.barlett(signal[:,ii], K=K, ax=0) for ii in range(Nexp)]))
+Sper = np.vstack(np.transpose([sp.welch(signal[:,ii], L=L, over=over, win="Bartlett", ax=0) for ii in range(Nexp)]))
 
 energia = np.sum(Sper, axis=0) / N
 
@@ -52,7 +60,7 @@ varianza =  np.mean(var_muestreal, axis=0)
 
 
 #%%  Grafico de los resultados
-ff = np.linspace(0,np.pi, N)
+ff = np.linspace(0,np.pi, int(N/K))
 plt.figure("Gráfico promeio del periodograma para ruido blanco")
 plt.subplot(211)
 plt.plot(ff,valor_medio_muestreal)
