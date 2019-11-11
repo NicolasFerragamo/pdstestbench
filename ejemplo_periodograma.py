@@ -44,11 +44,13 @@ plt.title("Gráfico dde realizaciones de ruido blanco")
 
 #Sper  = sp.periodogram(signal, exp=500, ax=0)
 #Sper = np.vstack(np.transpose([sp.mperiodogram(signal[:,ii], 'Bartlett', ax=0) for ii in range(Nexp)]))
-K = 40
+K = 10
 over = 0.5
-L = N/40
+L = N/K
+M = int(N/5)
 #Sper = np.vstack(np.transpose([sp.barlett(signal[:,ii], K=K, ax=0) for ii in range(Nexp)]))
 Sper = np.vstack(np.transpose([sp.welch(signal[:,ii], L=L, over=over, win="Bartlett", ax=0) for ii in range(Nexp)]))
+#Sper = np.vstack(np.transpose([sp.blakmanTukey(signal[:,ii], win="Bartlett", ax=0) for ii in range(Nexp)]))
 
 energia = np.sum(Sper, axis=0) / N
 
@@ -61,6 +63,7 @@ varianza =  np.mean(var_muestreal, axis=0)
 
 #%%  Grafico de los resultados
 ff = np.linspace(0,np.pi, int(N/K))
+#ff = np.linspace(0,np.pi, 2*M-1)
 plt.figure("Gráfico promeio del periodograma para ruido blanco")
 plt.subplot(211)
 plt.plot(ff,valor_medio_muestreal)
