@@ -56,6 +56,14 @@ valor_medio2 = np.mean(valor_medio_muestreal2, axis=0)
 valor_medio3 = np.mean(valor_medio_muestreal3, axis=0) 
 valor_medio4 = np.mean(valor_medio_muestreal4, axis=0) 
 
+#%% sesgo 
+sesgo0 = np.abs(valor_medio0 - var)
+sesgo1 = np.abs(valor_medio1 - var)
+sesgo2 = np.abs(valor_medio2 - var)
+sesgo3 = np.abs(valor_medio3 - var)
+sesgo4 = np.abs(valor_medio4 - var)
+
+
 #%% valor muestreal
 var_muestreal0 = np.var(Sbar0, axis=1) 
 var_muestreal1 = np.var(Sbar1, axis=1) 
@@ -89,7 +97,8 @@ freq4 = np.linspace(0, (N-1)*df, int(N/K[4])) / fs
 #%%  Grafico de los resultados de K=2
 
 plt.figure("Periodogramas de ruido blanco con K= " + A[0], constrained_layout=True)
-plt.title("Periodogramas de ruido blanco con K= " + A[0])
+plt.subplot(1,2,1)
+plt.title("Estimador de Bartlett con K= " + A[0])
 plt.plot(freq0, Sbar0, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
@@ -97,21 +106,23 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.grid()
 
-plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[0], constrained_layout=True)
-plt.title(" Promedio de los Periodogramas de ruido blanco con K= " + A[0])
+plt.subplot(1,2,2)
+#plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[0], constrained_layout=True)
+plt.title(" Promedio de Bartlett con K= " + A[0])
 plt.plot(freq0, valor_medio_muestreal0, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(valor_medio_muestreal0)-0.3, max(valor_medio_muestreal0)+0.3)
+plt.ylim(min(valor_medio_muestreal0)-0.01, max(valor_medio_muestreal0)+0.01)
 plt.grid()
-
+plt.tight_layout()
 
 #%%  Grafico de los resultados de K=5
 
 plt.figure("Periodogramas de ruido blanco con K= " + A[1], constrained_layout=True)
-plt.title("Periodogramas de ruido blanco con K= " + A[1])
+plt.subplot(1,2,1)
+plt.title("Estimador de Bartlett con K= " + A[1])
 plt.plot(freq1, Sbar1, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
@@ -119,22 +130,24 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.grid()
 
-plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[1], constrained_layout=True)
-plt.title(" Promedio de los Periodogramas de ruido blanco con K= " + A[1])
+plt.subplot(1,2,2)
+#plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[1], constrained_layout=True)
+plt.title(" Promedio de Bartlett con K= " + A[1])
 plt.plot(freq1, valor_medio_muestreal1, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(valor_medio_muestreal1)-0.3, max(valor_medio_muestreal1)+0.3)
+plt.ylim(min(valor_medio_muestreal1)-0.01, max(valor_medio_muestreal1)+0.01)
 plt.grid()
-
+plt.tight_layout()
 
 
 #%%  Grafico de los resultados de K=10
 
 plt.figure("Periodogramas de ruido blanco con K= " + A[2], constrained_layout=True)
-plt.title("Periodogramas de ruido blanco con K= " + A[2])
+plt.subplot(1,2,1)
+plt.title("Estimador de Bartlett con K= " + A[2])
 plt.plot(freq2, Sbar2, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
@@ -142,21 +155,22 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.grid()
 
-plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[2], constrained_layout=True)
-plt.title(" Promedio de los Periodogramas de ruido blanco con K= " + A[2])
+plt.subplot(1,2,2)
+plt.title(" Promedio de Bartlett con K= " + A[2])
 plt.plot(freq2, valor_medio_muestreal2, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(valor_medio_muestreal2)-0.3, max(valor_medio_muestreal2)+0.3)
+plt.ylim(min(valor_medio_muestreal2)-0.01, max(valor_medio_muestreal2)+0.01)
 plt.grid()
-
+plt.tight_layout()
 
 #%%  Grafico de los resultados de K=20
 
 plt.figure("Periodogramas de ruido blanco con K= " + A[3], constrained_layout=True)
-plt.title("Periodogramas de ruido blanco con K= " + A[3])
+plt.subplot(1,2,1)
+plt.title("Estimador de Bartlett con K= " + A[3])
 plt.plot(freq3, Sbar3, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
@@ -164,21 +178,23 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.grid()
 
-plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[3], constrained_layout=True)
-plt.title(" Promedio de los Periodogramas de ruido blanco con K= " + A[3])
+plt.subplot(1,2,2)
+#plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[3], constrained_layout=True)
+plt.title(" Promedio de Bartlett con K= " + A[3])
 plt.plot(freq3, valor_medio_muestreal3, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(valor_medio_muestreal3)-0.3, max(valor_medio_muestreal3)+0.3)
+plt.ylim(min(valor_medio_muestreal3)-0.01, max(valor_medio_muestreal3)+0.01)
 plt.grid()
-
+plt.tight_layout()
 
 #%%  Grafico de los resultados de K=50
 
 plt.figure("Periodogramas de ruido blanco con K= " + A[4], constrained_layout=True)
-plt.title("Periodogramas de ruido blanco con K= " + A[4])
+plt.subplot(1,2,1)
+plt.title("Estimador de Bartlett con K= " + A[4])
 plt.plot(freq4, Sbar4, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
@@ -186,36 +202,52 @@ plt.axhline(0, color="black")
 plt.axvline(0, color="black")
 plt.grid()
 
-plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[4], constrained_layout=True)
-plt.title(" Promedio de los Periodogramas de ruido blanco con K= " + A[4])
+plt.subplot(1,2,2)
+#plt.figure("Promedio de los Periodogramas de ruido blanco con K= " + A[4], constrained_layout=True)
+plt.title(" Promedio de Bartlett con K= " + A[4])
 plt.plot(freq4, valor_medio_muestreal4, marker='.')
 plt.xlabel('frecuecnia normalizada f/fs [Hz]')
 plt.ylabel("Amplitud")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(valor_medio_muestreal4)-0.3, max(valor_medio_muestreal4)+0.3)
+plt.ylim(min(valor_medio_muestreal4)-0.01, max(valor_medio_muestreal4)+0.01)
 plt.grid()
+plt.tight_layout()
+
 
 #%% Gráfico de la varianza
 varianza = [varianza0, varianza1, varianza2, varianza3, varianza4]
+sesgo =[sesgo0, sesgo1, sesgo2, sesgo3, sesgo4]
 
-plt.figure("Varianza", constrained_layout=True)
+plt.figure("Consistencia del estimador", constrained_layout=True)
+plt.subplot(1,2,1)
+plt.title("Sesgo")
+plt.plot(K, sesgo, marker='.')
+plt.xlabel('número de ventanas K')
+plt.ylabel("Sesgo")
+plt.axhline(0, color="black")
+plt.axvline(0, color="black")
+plt.ylim(min(sesgo)-0.01, max(sesgo)+0.01)
+plt.grid()
+
+plt.subplot(1,2,2)
 plt.title("Varianza ")
 plt.plot(K, varianza, marker='.')
 plt.xlabel('número de ventanas K')
 plt.ylabel("Varianza")
 plt.axhline(0, color="black")
 plt.axvline(0, color="black")
-plt.ylim(min(varianza)-0.3, max(varianza)+0.3)
+plt.ylim(min(varianza)-0.01, max(varianza)+0.01)
 plt.grid()
+plt.tight_layout()
 
 #%% tbla de resultados
 tus_resultados_bartlett = [ 
-                   [valor_medio0, varianza0], # <-- acá debería haber numeritos :)
-                   [valor_medio1, varianza1], # <-- acá debería haber numeritos :)
-                   [valor_medio2, varianza2], # <-- acá debería haber numeritos :)
-                   [valor_medio3, varianza3], # <-- acá debería haber numeritos :)
-                   [valor_medio4, varianza4], # <-- acá debería haber numeritos :)
+                   [sesgo0, varianza0], # <-- acá debería haber numeritos :)
+                   [sesgo1, varianza1], # <-- acá debería haber numeritos :)
+                   [sesgo2, varianza2], # <-- acá debería haber numeritos :)
+                   [sesgo3, varianza3], # <-- acá debería haber numeritos :)
+                   [sesgo4, varianza4], # <-- acá debería haber numeritos :)
                  ]
 df = pd.DataFrame(tus_resultados_bartlett, columns=['$s_B$', '$v_B$'],
                index=K)

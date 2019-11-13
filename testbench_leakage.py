@@ -8,7 +8,7 @@ Created on Wed Aug 21 19:20:28 2019
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-
+from spectrum import CORRELOGRAMPSD
 
 from pdsmodulos.signals import signals as sg 
 from pdsmodulos.signals import FFT
