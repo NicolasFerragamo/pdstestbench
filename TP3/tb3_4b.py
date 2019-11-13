@@ -6,7 +6,7 @@ Created on Tue Nov 12 18:20:39 2019
 @author: nico
 """
 
-#from spectrum import CORRELOGRAMPSD
+from spectrum import CORRELOGRAMPSD
 import os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -25,7 +25,7 @@ f0   = np.pi / 2
 M    = 100
 mu   = 0    # media (mu)
 var  = 2 # varianza
-SNR  = -17 #db
+SNR  = -15 #db
 a1   = 2*np.sqrt(var)*pow(10,SNR/20)
 a    = (-1/2) *df
 b    = (1/2) * df
@@ -54,17 +54,17 @@ del tt
 
 signal = senoidal + noise
 
-#Swelch = np.vstack(np.transpose([CORRELOGRAMPSD(signal[:,ii],window='bartlett', lag=5) for ii in range(Nexp)]))
-Swelch = np.vstack(np.transpose([sp.blakmanTukey(signal[:,ii], win="Bartlett", M=M,ax=0) for ii in range(Nexp)]))
+Swelch = np.vstack(np.transpose([CORRELOGRAMPSD(signal[:,ii],window='bartlett', lag=M, NFFT=N) for ii in range(Nexp)]))
+#Swelch = np.vstack(np.transpose([sp.blakmanTukey(signal[:,ii], win="Bartlett", M=M,ax=0) for ii in range(Nexp)]))
 Swelch = 10*np.log10(Swelch *2/N)
 #Swelch = Swelch [:int(L/2),:]
 
-freq_hat = np.argmax(Swelch, axis=0) # estimo la frecuecnia 
+freq_hat = np.argmax(Swelch[:int(N/2)-1,:], axis=0)*df # estimo la frecuecnia 
 
 error_freq = np.abs(freq_hat - f1)/f1  # calculo el error absoluto
 
 #%% Gráficos de la PSD
-ff = np.linspace(0, (N-1)*df/2, 2*M-1)
+ff = np.linspace(0, (N-1)*df, N)
 plt.figure("PSD", constrained_layout=True)
 plt.title("PSD")
 plt.plot(ff, Swelch, marker='.')
