@@ -72,7 +72,7 @@ def mperiodogram(signal, win='Bartlett', n1=0, n2=0, exp=0, ax=0):
     else :
          w = sg.boxcar(N) 
          
-    aux = signal[n1:n2] * w     
+    aux = signal[n1:n2] * w 
     U = sum(np.abs(w)**2)/ N
     return periodogram(aux, exp, ax=ax) / U
 
