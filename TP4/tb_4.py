@@ -33,7 +33,12 @@ ecg_one_lead = vertical_flaten(mat_struct['ecg_lead'])
 N = len(ecg_one_lead)
 hb_1 = vertical_flaten(mat_struct['heartbeat_pattern1'])
 
-#%% obtengo la fft de la señal limpia
+plt.figure("señal principal")
+plt.plot(ecg_one_lead)
+plt.show()
+
+
+#%% obtengo la fft de la señal limpia sin ruido
 N1 = 35000
 N2 = 90000
 N3 = N2 - N1
@@ -44,7 +49,7 @@ plt.figure("señal limpia")
 plt.plot(signal)
 plt.show()
 
-K = 20
+K = 10
 L = N3/K
 over = 0.5
 ff,Swelch = sig.welch(signal.flatten(),fs=fs,nperseg=L,window='bartlett')
@@ -62,7 +67,49 @@ plt.show()
 
 
 
+#%% obtengo la fft de un latido limpio para obtener wp2
+N4 = 17750
+N5 = 18690
+N6 = N5 - N4
+df1 = fs/N6
+signal1 = ecg_one_lead[N4:N5]
+
+plt.figure("Latido limpio")
+plt.plot(signal1)
+plt.show()
+
+K1 = 10
+L1 = N6/K
+ff1,Swelch1 = sig.welch(signal1.flatten(),fs=fs,nperseg=L1,window='bartlett')
+Swelch1 = 10*np.log10(Swelch1/Swelch1[0])
+
+plt.figure("Latido limpio FFT")
+plt.plot(ff1,Swelch1)
+plt.xlabel('frecuecnia  [Hz]')
+plt.ylabel('Amplitud db')
+plt.grid()
+plt.show()
 
 
-#plt.figure(2)
-#plt.plot(hb_1)
+#%% obtengo la fft de ruido para obtener ws2
+N7 = 106340
+N8 = 106840
+N9 = N8 - N7
+df2 = fs/N9
+signal2 = ecg_one_lead[N7:N8]
+
+plt.figure("Ruido en el electro")
+plt.plot(signal2)
+plt.show()
+
+K2 = 10
+L2 = N9/K
+ff2,Swelch2 = sig.welch(signal2.flatten(),fs=fs,nperseg=L1,window='bartlett')
+Swelch2 = 10*np.log10(Swelch2)
+
+plt.figure("Ruido en el electro FFT")
+plt.plot(ff2,Swelch2)
+plt.xlabel('frecuecnia  [Hz]')
+plt.ylabel('Amplitud db')
+plt.grid()
+plt.show()

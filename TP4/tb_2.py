@@ -10,6 +10,10 @@ import numpy as np
 from scipy import signal as sig
 import matplotlib.pyplot as plt
 import control
+import os
+
+os.system ("clear") # limpia la terminal de python
+plt.close("all")    #cierra todos los graficos 
 
 num = np.array([-1, 1])
 den = np.array([1, 0])
