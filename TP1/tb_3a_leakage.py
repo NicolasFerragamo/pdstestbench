@@ -42,6 +42,7 @@ energia = np.zeros((4))
 for ii in range(0, 4):
     tt, signal[:,ii] = sg.seno(fs, f[ii], N, a0, p0)
   
+energ0 = np.sum(signal**2, axis=0)/N
 #%% Gráficos de las señales temporales
 #ax = plt.figure("Funcion  senoidal")
 #plt.plot(tt, signal[:,0], color='blue',label='sin(2pi(f0+0.01df)t)')

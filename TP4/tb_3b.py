@@ -20,13 +20,17 @@ den = np.array([1, 0, 0, 0, 0])
 z, p, k = sig.tf2zpk(num,den)
 
 ww, hh = sig.freqz(num, den)
+print("Z =", z, "\n", "P =", p, "\n", "K =", k, "\n")
+ww, hh = sig.freqz(num, den)
 ww = ww / np.pi
+
+eps = np.finfo(float).eps
 
 
 plt.figure("Filtro FIR") 
 ax1 = plt.subplot(2, 1, 1)
 ax1.set_title('Módulo')
-ax1.plot(ww, 20 * np.log10(abs(hh)))
+ax1.plot(ww, 20 * np.log10(abs(hh+eps)))
 ax1.set_xlabel('Frequencia normalizada')
 ax1.set_ylabel('Modulo [dB]')
 plt.grid()
