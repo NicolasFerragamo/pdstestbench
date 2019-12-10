@@ -59,7 +59,7 @@ plt.tight_layout()
 
 
 
-tf = control.TransferFunction(num,den)
+tf = control.TransferFunction(num,den,1)
 print (tf)
 control.pzmap(tf, Plot=True, title='Pole Zero Map', grid=True)
 
