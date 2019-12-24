@@ -49,6 +49,21 @@ tiempodft = the_end - the_start
 signal = ecg_one_lead - median2
 del the_start, the_end
 
+print('El tiempo demorado por este tipo de filtrado es: ',tiempodft)
+
+#%% Graficos
+plt.figure("Estimación de la interpolante", constrained_layout=True)
+plt.title("Estimación de la interpolante")
+plt.plot(tt, median2)
+plt.xlabel('Muestras')
+plt.ylabel("Amplitud ")
+plt.axhline(0, color="black")
+plt.axvline(0, color="black")
+plt.grid()
+plt.legend()
+plt.show()
+
+
 plt.figure("ECG", constrained_layout=True)
 plt.title("ECG")
 plt.plot(tt, ecg_one_lead, label='ECG original')
@@ -60,6 +75,36 @@ plt.axvline(0, color="black")
 plt.grid()
 plt.legend()
 plt.show()
+
+#%% Zoom regions
+
+# Segmentos de interés
+regs_interes = ( 
+        np.array([1.6, 2.6]) *60*fs, # minutos a muestras
+        np.array([4, 5]) *60*fs, # minutos a muestras
+        np.array([10, 10.5]) *60*fs, # minutos a muestras
+        np.array([12, 12.7]) *60*fs, # minutos a muestras
+        np.array([14.6, 15.7]) *60*fs, # minutos a muestras
+        )
+for ii in regs_interes:
+    
+    # intervalo limitado de 0 a cant_muestras
+    zoom_region = np.arange(np.max([0, ii[0]]), np.min([cant_muestras, ii[1]]), dtype='uint')
+    #hace el clipeo para salvar a los indices otra forma es el modulo N (le sumas N para que ingrece
+    #por el otro extremo y queda circular en 'C' se hace x % 5 )
+    plt.figure(figsize=(fig_sz_x, fig_sz_y), dpi= fig_dpi, facecolor='w', edgecolor='k')
+    plt.plot(zoom_region, ecg_one_lead[zoom_region], label='ECG', lw=2)
+    plt.plot(zoom_region, signal[zoom_region], label='interpolante')
+    
+    plt.title('ECG filtering example from ' + str(ii[0]) + ' to ' + str(ii[1]) )
+    plt.ylabel('Adimensional')
+    plt.xlabel('Muestras (#)')
+    
+    axes_hdl = plt.gca()
+    axes_hdl.legend()
+    axes_hdl.set_yticks(())
+            
+    plt.show()
 
 #%% Medicion de la frecuencia de corte del filtro de multirate (me quedo con ek 95% de la energia, para eso utilizo la funcion cumsum)
 K = 30
@@ -88,7 +133,7 @@ for ii in range(len(limfreq)) :
 nyq_frec = fs / 2
 cant_pasadas  = nyq_frec/freq
 cant_pasadas = np.log2(cant_pasadas)  #porque cada pasada divide a la mitad
-cant_pasadas = np.round(cant_pasadas)
+cant_pasadas = int(np.round(cant_pasadas))
 
 
 
@@ -114,6 +159,11 @@ the_end = time()
 tiempodft_dec = the_end - the_start
 del the_start, the_end     
 
+#%% Guardo un ECG limpio para el punto 5b
+
+obj_arr = np.zeros((1), dtype=np.object)
+obj_arr = signal_int
+sio.savemat('./ECG_Limpio.mat', mdict={'ECG_Limpio': obj_arr})
 #%% comparo los dos métodos en tiempo y en error absoluto
 
 tiempo = tiempodft / tiempodft_dec
@@ -125,7 +175,7 @@ sesgo = np.abs(valor_medio_real - valor_medio_interpolate_signal)
 
 error_cuadratico_medio = np.mean(error_cuadratico)
 error__medio = np.mean(error)
-var_error = np.var(error)
+var_error = np.var(error, axis=0)
 
 plt.figure("ECG 2", constrained_layout=True)
 plt.title("ECG 2")
@@ -176,9 +226,11 @@ plt.show()
 
 # Segmentos de interés
 regs_interes = ( 
-        np.array([5, 5.2]) *60*fs, # minutos a muestras
-        np.array([12, 12.4]) *60*fs, # minutos a muestras
-        np.array([15, 15.2]) *60*fs, # minutos a muestras
+       np.array([1.6, 2.6]) *60*fs, # minutos a muestras
+        np.array([4, 5]) *60*fs, # minutos a muestras
+        np.array([10, 10.5]) *60*fs, # minutos a muestras
+        np.array([12, 12.7]) *60*fs, # minutos a muestras
+        np.array([14.6, 15.7]) *60*fs, # minutos a muestras
         )
 for ii in regs_interes:
     

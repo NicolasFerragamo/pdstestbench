@@ -5,8 +5,8 @@ Created on Wed Nov 13 19:46:09 2019
 
 @author: nico
 """
-
-
+import sys
+sys.path.append('/home/nico/Documentos/facultad/6to_nivel/pds/git/pdstestbench')
 import os
 import numpy as np
 from scipy import signal as sig
@@ -103,6 +103,7 @@ df2 = fs/N9
 signal2 = ecg_one_lead[N7:N8]
 
 plt.figure("Ruido en el electro")
+plt.title("Ruido en el electro")
 plt.plot(signal2)
 plt.show()
 
