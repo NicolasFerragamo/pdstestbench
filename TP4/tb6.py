@@ -10,11 +10,11 @@ import os
 import numpy as np
 from scipy import signal as sig
 import matplotlib.pyplot as plt
-from scipy.fftpack import fft
+#from scipy.fftpack import fft
 import scipy.io as sio
-from time import time
-import pandas as pd
-from scipy.interpolate import CubicSpline
+#from time import time
+#import pandas as pd
+#from scipy.interpolate import CubicSpline
 
 os.system ("clear") # limpia la terminal de python
 plt.close("all")    #cierra todos los graficos 
@@ -50,11 +50,12 @@ fs = 1000
 tt = np.linspace(0, cant_muestras, cant_muestras)
 
 #utilizo la señal de ECG filtrada con el filtro de mediana
-median1 = sig.medfilt(ecg_one_lead, 201) #200 ms
-median2 = sig.medfilt(median1, 601) #600 ms
-the_end = time()
 
-signal = ecg_one_lead - median2
+sio.whosmat('ECG_Limpio.mat')
+mat_struct1 = sio.loadmat('ECG_Limpio.mat')
+ecg_limpio = mat_struct1['ECG_Limpio']
+ecg_limpio = ecg_limpio.flatten(1)
+
 
 #%% correlacionar es lo mismo que convolucionar con la señal invertida
 #utilizo la clase.reverce() para invertir los índices de los patrones
@@ -67,21 +68,22 @@ signal = ecg_one_lead - median2
 
 #%% obtengo la correlación 
 # tengo que normalizar para poder graficar
-
+signal = ecg_limpio
 signal = signal / np.max(signal)
-correlation_QRS = sig.correlate(qrs_1, signal)
+correlation_QRS = sig.correlate(qrs_1, signal, method='fft')
 correlation_QRS = correlation_QRS / np.max(correlation_QRS)
 correlation_LN = sig.correlate(hb_1, signal)
 correlation_LN = correlation_LN / np.max(correlation_LN)
 correlation_LV = sig.correlate(hb_2, signal)
 correlation_LV = correlation_LV / np.max(correlation_LV)
 
+#%% Gráficos 
 plt.figure("Deteccion de los latidos", constrained_layout=True)
 plt.title("Deteccion de los latidos")
 plt.plot(tt, signal, label='Señal de ECG filtrada')
 plt.plot(tt, correlation_QRS[len(qrs_1)-1:], label='patron QRS')
-plt.plot(tt, correlation_LN[len(hb_1)-1:], label='patron Lat Normal')
-plt.plot(tt, correlation_LV[len(hb_2)-1:], label='patron Lat Ventricular')
+#plt.plot(tt, correlation_LN[len(hb_1)-1:], label='patron Lat Normal')
+#plt.plot(tt, correlation_LV[len(hb_2)-1:], label='patron Lat Ventricular')
 plt.xlabel('Muestras')
 plt.ylabel("Amplitud ")
 plt.axhline(0, color="black")
