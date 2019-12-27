@@ -278,10 +278,12 @@ errores = [
           ]
 
 df = pd.DataFrame(tus_resultados_per, columns=['NF', 'PF', 'PV', 'NV', 'TA %'],
-               index=['  Complejo de ondas QRS normal','Latido normal', ' Latido de origen ventricular'])
+               index=['  Complejo de ondas QRS normal','Latido normal',
+                      ' Latido de origen ventricular'])
 
 df1 = pd.DataFrame(errores, columns=['error relativo maximo %', 'varianza'],
-               index=['  Complejo de ondas QRS normal','Latido normal', ' Latido de origen ventricular'])
+               index=['  Complejo de ondas QRS normal','Latido normal', 
+                      ' Latido de origen ventricular'])
 
 print("\n")
 print(df)
