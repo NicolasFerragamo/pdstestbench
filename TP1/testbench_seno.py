@@ -9,7 +9,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+import sys
+sys.path.append('/home/nico/Documentos/facultad/6to_nivel/pds/git/pdstestbench')
 from pdsmodulos.signals import signals as sg 
 from pdsmodulos.signals import FFT
 

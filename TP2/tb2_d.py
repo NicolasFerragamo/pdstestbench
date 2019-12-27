@@ -5,7 +5,8 @@ Created on Wed Oct 23 10:51:41 2019
 
 @author: nico
 """
-
+import sys
+sys.path.append('/home/nico/Documentos/facultad/6to_nivel/pds/git/pdstestbench')
 import os
 import matplotlib.pyplot as plt
 import numpy as np

@@ -5,7 +5,8 @@ Created on Tue Nov 12 18:20:39 2019
 
 @author: nico
 """
-
+import sys
+sys.path.append('/home/nico/Documentos/facultad/6to_nivel/pds/git/pdstestbench')
 from spectrum import CORRELOGRAMPSD
 import os
 import matplotlib.pyplot as plt

@@ -87,6 +87,16 @@ hb_1_detections_pos = hb_1_detections_pos[0]
 hb_2_detections_pos = sig.argrelmax(correlation_LV,order=350)
 hb_2_detections_pos = hb_2_detections_pos[0]
 
+QRS_detections_pos2 = np.zeros(len(QRS_detections_pos))
+
+jj = 0
+for ii in range(len(signal_detections_pos)):
+    if ( QRS_detections_pos[jj] - 300 <= signal_detections_pos[ii]  and 
+        QRS_detections_pos[jj] + 300 >= signal_detections_pos[ii] ):
+            QRS_detections_pos2[jj] = signal_detections_pos[ii]
+            jj +=1
+       
+
 #%% Gráficos 
 correlation_QRS = correlation_QRS / np.max(correlation_QRS)
 signal = signal / np.max(signal)
@@ -225,7 +235,7 @@ QRS_error2 = np.abs(QRS_detections_pos[306:] - qrs_detections[304:])
 QRS_error_abs = np.concatenate((QRS_error1,QRS_error2),axis=0) 
 QRS_error_rel = QRS_error_abs /qrs_detections
 QRS_error_rel_porcentual = QRS_error_rel *100
-QRS_Varianza = np.var(QRS_error_rel)
+QRS_varianza = np.var(QRS_error_rel)
 del QRS_error1, QRS_error2
 
 
@@ -272,9 +282,9 @@ tus_resultados_per = [
                        [ hb_2_NF, hb_2_PF, hb_2_PV, hb_2_NV, hb_2_TA]
                      ]
 errores = [
-            [max(QRS_error_rel_porcentual), QRS_Varianza ],
-            [max(hb_1_error_rel_porcentual), hb_1_Varianza ],
-            [max(hb_2_error_rel_porcentual), hb_2_Varianza ]
+            [max(QRS_error_rel_porcentual), QRS_varianza ],
+            [max(hb_1_error_rel_porcentual), hb_1_varianza ],
+            [max(hb_2_error_rel_porcentual), hb_2_varianza ]
           ]
 
 df = pd.DataFrame(tus_resultados_per, columns=['NF', 'PF', 'PV', 'NV', 'TA %'],
