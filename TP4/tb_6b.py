@@ -226,6 +226,7 @@ for ii in regs_interes:
 error_cant_detecciones = np.abs(cant_detections - len(QRS_detections_pos))
 
 #2°
+# la muestra 0 y la 305 es erronea
 
 error1 = np.abs(QRS_detections_pos[1:305] - qrs_detections[0:304])
 error2 = np.abs(QRS_detections_pos[306:] - qrs_detections[304:])
